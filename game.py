@@ -364,41 +364,39 @@ def prints_wave():
 
 
 
-
 scr = 0
+for x in range(0,1000):
+    auto_enemy()
 while scr == 0:
-    screen.fill((0, 0, 0))
-    msg("TRASH MANIA", 400,300)
-    msg("click anywhere to start",400,350)
-    msg("press c to view credits scene",0,400)
+    screen.blit(screen1,(0,0))
+    pygame.display.update()
+    fpsClock.tick(fps)
     for event in pygame.event.get():
+        if event.type == KEYDOWN:
+            if event.key == K_c:
+                screen1 = pygame.image.load(full_path("credits.png"))
         if event.type == MOUSEBUTTONDOWN:
             scr = 1
-        if event.type == K_c:
-            scr = 4
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-for x in range(0,1000):
-    auto_enemy()
+
 while scr == 1:
     screen.fill((0, 0, 0))
     screen.blit(floor,(0,0))
-    screen.blit(bulletR,(bulletInst.current_x,bulletInst.current_y))
+    screen.blit(bullet,(bulletInst.current_x,bulletInst.current_y))
     screen.blit(bob,(bob_1.x,bob_1.y))
     # screen.blit(bullet,(current_x,current_y))
     bob_1.bob_move()
     # load_player_health()
     bulletInst.bullet_shoot()
+    do_waves()
     msg(prints_score(), 555, 5)
     msg(prints_wave(), 575, 35)
     screen.blit(health_bar,(5,5))
-    do_waves()
-    globals()[n[x]].frame += 1
-    if globals()[n[x]].frame >4:
-        globals()[n[x]].frame = 1
-        enemy = pygame.image.load(full_path("/enemy1/enemy" + str(globals()[n[x]].frame) +".png"))
     # enemy_all()
+    pygame.display.update()
+    fpsClock.tick(fps)
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -425,10 +423,11 @@ while scr == 1:
             #     bob_1.bob_down()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if is_shot == False:
-                bobtempx= bob_1.x
-                bobtempy= bob_1.y
                 bulletInst.bullet_load()
                 is_shot = True
                 auto_bullet()
-    pygame.display.update()
-    fpsClock.tick(fps)
+
+
+
+pygame.display.update()
+fpsClock.tick(fps)
