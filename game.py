@@ -269,8 +269,8 @@ class bulletClass:
             else:
                 is_shot = False
         else:
-            self.current_x = bob_1.x
-            self.current_y = bob_1.y
+            self.current_x = bob_1.x + (bob_1.w/2)
+            self.current_y = bob_1.y + (bob_1.w/2)
 bullet_1 = None
 bulletInst = bullet_1
 bulletInst = bulletClass()
